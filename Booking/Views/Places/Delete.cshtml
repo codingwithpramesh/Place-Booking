@@ -1,0 +1,38 @@
+﻿@model Places
+
+@{
+    ViewData["Title"] = "Create Countries";
+}
+<form asp-action="Delete" method="post" enctype="multipart/form-data">
+    <div class="row">
+        <div class="col-md-8 offset-2">
+            <div class="form-group">
+                <label asp-for="HostId">Host ID</label>
+                <input asp-for="HostId" class="form-control" />
+                <span asp-validation-for="HostId"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Address">Address</label>
+                <input asp-for="Address" class="form-control" />
+                <span asp-validation-for="Address"></span>
+            </div>
+
+
+            <div class="form-group">
+                <label asp-for="City_Id"> City ID</label>
+                <input asp-for="City_Id" class="form-control" />
+                <span asp-validation-for="City_Id"></span>
+            </div>
+
+            <div class="form-group">
+               <img src="@Url.Content(Model.Image)" height="100px;" width="100px;" />
+            </div>
+
+            <div class="form-group">
+                <button type="submit" asp-action="Delete" class="btn btn-primary">Delete</button>
+            </div>
+        </div>
+    </div>
+
+</form>

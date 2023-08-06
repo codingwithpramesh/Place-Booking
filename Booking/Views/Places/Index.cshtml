@@ -1,0 +1,82 @@
+﻿@*@model List<Places>
+
+@{
+    ViewData["Title"] = "List Of Data";
+}
+
+<div class="row" >
+    <div class="col-md-8 offset-2">
+        <table class="table">
+            <tr>
+                <td> @Html.DisplayNameFor(Model => Model.First().HostId)</td>
+                <td>@Html.DisplayNameFor(Model =>Model.First().Address) </td>
+                <td>@Html.DisplayNameFor(Model =>Model.First().City_Id)</td>
+                <td>@Html.DisplayNameFor(Model =>Model.First().Image)</td>
+                <td>Actions</td>
+            </tr>
+
+            @foreach (var abc in Model)
+            {
+                <tr>
+                    <td> @Html.DisplayFor(Model => abc.HostId)</td>
+                    <td> @Html.DisplayFor(Model => abc.Address)</td>
+                    <td> @Html.DisplayFor(Model => abc.City_Id)</td>
+                    @*                    <td> <img src="~/Images/@abc.Image" class="rounded-circle" height="60" width="60" asp-append-version="true" /></td> *@
+@* <td><img src="@Url.Content(abc.Image)" asp-append-version="true" width="100px" height="100px" /> </td>
+                    <td> <a asp-action="Edit" asp-route-id="@abc.Id">Edit</a>
+                     <a asp-action="Delete" asp-route-id="@abc.Id">Delete</a>
+                    <a asp-action="Details" asp-route-id="@abc.Id">Details</a></td>
+                </tr>
+            }
+
+
+        </table>
+    </div>
+</div>*@
+
+@*<div class="row">
+    @foreach (var a in Model)
+    {
+        <div class="col-md-8  mb-3">
+            <div class="card " style="max-width: 180px;">
+                <img class="card-img-top" src="@a.Image" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">@a.Address</h5>
+                    <p class="card-text"></p>
+                    <a href="#" class="btn btn-primary">Book Now</a>
+                </div>
+            </div>
+        </div>
+    }
+</div>*@
+
+@model List<Places>
+
+@{
+    ViewData["Title"] = "Difference Places";
+}
+
+<div class="row">
+    @foreach (var data in Model)
+    {
+        <div class="col-md-4 col-xs-6 border-primary mb-3">
+            <div class="card mb-3" style="max-width:540px;">
+                <div class="row g-0">
+
+                    <div class="col-md-12">
+                        <div class="card-header">
+                            <h2>@data.Address</h2>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <img src="@data.Image" width="100%">
+                    </div>
+                    <div class="col-md-12 float-end">
+                        <a class="btn btn-primary" asp-action="Book" asp-route-id="@data.Id">Book Now</a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    }
+</div>

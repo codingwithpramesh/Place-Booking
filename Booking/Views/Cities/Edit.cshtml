@@ -1,0 +1,28 @@
+﻿@model Cities
+
+@{
+    ViewData["Title"] = "Edit Countries";
+}
+<form asp-action="Edit" method="post">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="row">
+        <div class="col-md-8 offset-2">
+            <div class="form-group">
+                <label asp-for="Name">Country Name</label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="CountryId">Country Id</label>
+                <input asp-for="CountryId" class="form-control" />
+                <span asp-validation-for="CountryId"></span>
+            </div>
+
+            <div class="form-group">
+                <button type="submit" asp-action="Edit" class="btn btn-primary">Edit</button>
+            </div>
+        </div>
+    </div>
+
+</form>

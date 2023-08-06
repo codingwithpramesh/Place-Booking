@@ -1,0 +1,59 @@
+﻿@model Booked
+
+@{
+    ViewData["Title"] = "Create Countries";
+}
+
+
+<form asp-action="Create" method="post" enctype="multipart/form-data">
+     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="row">
+        <div class="col-md-8 offset-2">
+            <div class="form-group">
+                <label asp-for="userID">UserId</label>
+                <input asp-for="userID" class="form-control" />
+                <span asp-validation-for="userID"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="placeId">Place Id</label>
+                <input asp-for="placeId" class="form-control" />
+                <span asp-validation-for="placeId"></span>
+            </div>
+
+          @*  <div class="form-group">
+                <label asp-for="Image">Image</label>
+                <input type="file" asp-for="Image" id="ImageFile" name="file" class="form-control" />
+                <span asp-validation-for="Image"></span>
+            </div>*@
+
+
+            <div class="form-group">
+                <label asp-for="StartDate"> Start Date</label>
+                <input type="datetime" asp-for="StartDate" class="form-control" />
+                <span asp-validation-for="StartDate"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="EndDate"> EndDate</label>
+                <input type="datetime" asp-for="EndDate" class="form-control" />
+                <span asp-validation-for="EndDate"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="PricePerNight"> Price Per Night</label>
+                <input asp-for="PricePerNight" class="form-control" />
+                <span asp-validation-for="PricePerNight"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Num_night"> Night Number</label>
+                <input  asp-for="Num_night" class="form-control" />
+                <span asp-validation-for="Num_night"></span>
+            </div>
+            <div class="form-group">
+                <button type="submit" asp-action="Create" class="btn btn-primary">Create</button>
+            </div>
+        </div>
+    </div>
+
+</form>

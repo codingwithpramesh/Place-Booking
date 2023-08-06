@@ -1,0 +1,18 @@
+﻿@model Places
+
+<table class="table table-striped">
+    <tr>
+        <td>Id</td>
+        <td>HostId</td>
+        <td>Address</td>
+        <td>City Id</td>
+        <td> Image</td>
+    </tr>
+    <tr>
+        <td>@Model.Id</td>
+        <td>@Model.HostId</td>
+        <td>@Model.Address</td>
+        <td>@Model.City_Id</td>
+        <td><img src="@Url.Content(Model.Image)" asp-append-version="true" width="100px;" height="100px" /></td>
+    </tr>
+</table>

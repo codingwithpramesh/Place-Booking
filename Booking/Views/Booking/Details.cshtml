@@ -1,0 +1,40 @@
+﻿@model Booked
+
+<table class="table table-striped">
+    <tr>
+        <td>Id</td>
+        <td>@Model.Id</td>
+    </tr>
+    <tr>
+        <td>UserID</td>
+        <td>@Model.userID</td>
+    </tr>
+
+    <tr>
+        <td>Place Id</td>
+        <td>@Model.placeId</td>
+    </tr>
+
+    <tr>
+        <td>Start Date:</td>
+        <td>
+            @Model.StartDate
+        </td>
+    </tr>
+
+    <tr>
+        <td>End Date</td>
+        <td>@Model.EndDate</td>
+    </tr>
+
+    <tr>
+        <td>Price Per Night </td>
+        <td>@Model.PricePerNight</td>
+    </tr>
+
+    <tr>
+        <td>Number Night</td>
+       <td>@Model.Num_night</td>
+    </tr>
+   
+</table>
