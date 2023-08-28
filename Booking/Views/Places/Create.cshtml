@@ -1,7 +1,9 @@
 ﻿@model Places
 
 @{
-    ViewData["Title"] = "Create Countries";
+    ViewData["Title"] = "Create Review";
+    var cities = ViewData["cities"] as IEnumerable<SelectListItem>;
+    var places = ViewBag.places as Places;
 }
 <form asp-action="Create" method="post" enctype="multipart/form-data">
     <div class="row">
@@ -19,16 +21,19 @@
             </div>
 
             <div class="form-group">
-                <label asp-for="City_Id"> City Id</label>
-                <input asp-for="City_Id" class="form-control" />
-                <span asp-validation-for="City_Id"></span>
+                <label asp-for="CityId"> City Id</label>
+
+                <select asp-for="CityId" asp-items="@cities" class="form-control" id="CityId">
+                    <option value="1">--Select--</option>
+                </select>
+                @*<input asp-for="CityId" class="form-control" />*@
+                <span asp-validation-for="CityId" class="text-danger"></span>
             </div>
 
 
             <div class="form-group">
                 <label asp-for="Image">Image File</label>
-                
-                <input type="file" asp-for="Image" id="FileName" class="form-control" name="file" />
+                <input type="file" asp-for="Image"  class="form-control" name="file" />
 @*                <img src="(@Model.Image == null ? null : @Model.Image)" />
 *@                <span asp-validation-for="Image"></span>
             </div>

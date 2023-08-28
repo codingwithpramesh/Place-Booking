@@ -12,7 +12,9 @@ namespace BusinessLogicLayer
         IEnumerable<Cities> GetAll();
 
         Cities GetById(int id);
-        
+
+        IEnumerable<Countries> GetAllCountries();
+
         void Add(Cities cities);
 
         Cities update(Cities cities);

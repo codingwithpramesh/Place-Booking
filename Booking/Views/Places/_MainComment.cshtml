@@ -1,0 +1,14 @@
+﻿@model DataAccessLayer.Entities.ViewModel.CommentViewModel;
+
+@{
+
+}
+
+<div>
+    <form asp-action="comment" method="post" asp-controller="places">
+        <input type="hidden" asp-for="Id"/>
+        <input type="hidden" asp-for="MainCommentId" />
+        <input  asp-for="Message" />
+        <button type="submit" class="btn btn-primary" >Submit</button>
+    </form>
+</div>

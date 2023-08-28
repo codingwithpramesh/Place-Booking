@@ -41,7 +41,7 @@
             <tr>
                 <td> @Html.DisplayNameFor(Model => Model.First().HostId)</td>
                 <td>@Html.DisplayNameFor(Model =>Model.First().Address) </td>
-                <td>@Html.DisplayNameFor(Model =>Model.First().City_Id)</td>
+                <td>@Html.DisplayNameFor(Model =>Model.First().CityId)</td>
                 <td>@Html.DisplayNameFor(Model =>Model.First().Image)</td>
                 <td>Actions</td>
             </tr>
@@ -51,7 +51,7 @@
                 <tr>
                     <td> @Html.DisplayFor(Model => abc.HostId)</td>
                     <td> @Html.DisplayFor(Model => abc.Address)</td>
-                    <td> @Html.DisplayFor(Model => abc.City_Id)</td>
+                    <td> @Html.DisplayFor(Model => abc.CityId)</td>
                     @*                    <td> <img src="~/Images/@abc.Image" class="rounded-circle" height="60" width="60" asp-append-version="true" /></td> *@
  <td><img src="@Url.Content(abc.Image)" asp-append-version="true" width="100px" height="100px" /> </td>
                     <td> <a asp-action="Edit" asp-route-id="@abc.Id">Edit</a>

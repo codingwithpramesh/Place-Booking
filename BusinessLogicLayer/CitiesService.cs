@@ -1,6 +1,8 @@
 ﻿using Booking.Data;
 using Booking.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,6 +20,7 @@ namespace BusinessLogicLayer
         }
         public void Add(Cities cities)
         {
+            Log.Information("Logging Information");
             var data = _context.Cities.Add(cities);
             _context.SaveChanges();
             
@@ -25,21 +28,38 @@ namespace BusinessLogicLayer
 
         public void Delete(int id)
         {
+            Log.Information("Logging Information");
             var data = _context.Cities.FirstOrDefault(x => x.Id == id);
             _context.Cities.Remove(data);
             _context.SaveChanges();
         }
 
+      /*  public IEnumerable<Cities> Droplist(int id)
+        {
+          var data= _context.Cities.Where(x =>x.Id == id).ToList();
+            return data;
+
+        }*/
+
+        public IEnumerable<Countries> GetAllCountries()
+        {
+            var result = _context.Countries.ToList();
+            return result;
+        }
+
         public IEnumerable<Cities> GetAll()
         {
-          var result = _context.Cities.ToList();
-          return result;
+           /* Log.Information("Logging Information");*/
+            var result = _context.Cities.ToList();/*Select(c => new SelectListItem { Value = c.CountryId.ToString(), Text  =c.CountryId.ToString() }).ToList();*/
+            return result;
+           /* return null;*/
         }
 
         public Cities GetById(int id)
         {
            var data =_context.Cities.FirstOrDefault(c => c.Id == id);
-            return data;
+           IEnumerable<Cities> cities =_context.Cities.Where(c => c.Id == id);
+           return data;
         }
 
        public Cities update(Cities cities)

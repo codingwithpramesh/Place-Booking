@@ -1,4 +1,7 @@
 ﻿using Booking.Models;
+using DataAccessLayer.Entities.Comment;
+using DataAccessLayer.Entities;
+using DataAccessLayer.Entities.ViewModel;
 using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
@@ -14,10 +17,41 @@ namespace BusinessLogicLayer
 
         Places GetById(int id);
 
-        Places AddAsync(Places places, IFormFile file);
+        Task<Places> Add(Places places, IFormFile file);
 
-        Task<Places> update(Places places, IFormFile file);
+        Task<Places> Update(Places places, IFormFile file);
 
         void Delete(int id);
+
+      //  CommentsModel Comment(CommentsModel comment);
+
+
+
+
+        IEnumerable<Cities> Getcities();
+
+
+
+
+
+        /// comments 
+        /// 
+
+
+        Places GetPosts(int id);
+
+        List<Places> GetAllPost();
+
+        List<Places> GetAllPost(string category);
+
+        void UpdatePost(Places Places);
+
+        void AddSubComment(SubComment subComment);
+
+       
+
+        void RemoveComment(int id);
+
+        Task<bool> SavechangesAsync();
     }
 }

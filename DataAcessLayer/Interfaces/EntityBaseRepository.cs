@@ -1,9 +1,4 @@
 ﻿using Booking.Data;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DataAcessLayer.Interfaces
 {
@@ -14,10 +9,8 @@ namespace DataAcessLayer.Interfaces
         {
             _context = context;
         }
-        public Task AddAsync(T entity)
-        {
-            throw new NotImplementedException();
-        }
+        public async Task AddAsync(T entity) => await _context.Set<T>().AddAsync(entity);
+        
 
         public Task DeleteAsync(int id)
         {

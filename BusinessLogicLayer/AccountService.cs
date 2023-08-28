@@ -2,6 +2,7 @@
 using Booking.Models;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Http;
+//using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,42 +20,37 @@ namespace BusinessLogicLayer
             _context = context;
         }
 
-        public  Register login(Register register)
+        public Register login(Register register)
         {
-           /* var data = _context.Register.FirstOrDefault(x => x.Email == Register.Email && x.password == Register.password);
+           Register data = _context.Register.Where(x =>x.Id == register.Id).FirstOrDefault();
+           return register;
+        }
 
-            *//*  var claims = new List<Claim>()
+        public async  Task<Register> loginAsync(Register register)
+        {
+            Register data = _context.Register.FirstOrDefault(x => x.Email == register.Email && x.password == register.password);
+
+            List<Claim> claims = new List<Claim>()
               {
-                  new Claim(ClaimTypes.NameIdentifier, Register.Name),
+                  new Claim(ClaimTypes.NameIdentifier, register.Name),
 
 
-              };*//*
+              };
 
-            var identity = new ClaimsIdentity(new[]
+            ClaimsIdentity identity = new ClaimsIdentity(new[]
             {
-              new Claim(ClaimTypes.Email, Register.Email),
-              new Claim(ClaimTypes.Role, Register.Roles.ToString())
+              new Claim(ClaimTypes.Email, register.Email),
+              new Claim(ClaimTypes.Role, register.Roles.ToString())
             }, CookieAuthenticationDefaults.AuthenticationScheme);
-            var principal = new ClaimsPrincipal(identity);
-            HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal).Wait();
+            ClaimsPrincipal principal = new ClaimsPrincipal(identity);
+           // HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal).Wait();
 
             // HttpContext.Session.SetString("Email", Register.Email);
 
-            if (data.Roles == Data.Enum.Roles.Admin)
-            {
-                return RedirectToAction("Index", "Admin");
-            }
-            else if (data.Roles == Data.Enum.Roles.User)
-            {
-                return RedirectToAction("Index", "Home");
-            }
-            else
-            {
-                return RedirectToAction("Login", "Account");
-            }
+            return data;
 
-            
-*/
+
+
 
             throw new NotImplementedException();
         }

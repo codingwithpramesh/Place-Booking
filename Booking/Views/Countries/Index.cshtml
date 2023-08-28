@@ -8,16 +8,16 @@
     <div class="col-md-8 offset-2">
         <table class="table">
             <tr>
-                <td>@Html.DisplayNameFor(Model =>Model.First().Country_Code) </td>
-                <td>@Html.DisplayNameFor(Model =>Model.First().Country_Code)</td>
+                <td>@Html.DisplayNameFor(Model =>Model.First().CountryCode) </td>
+                <td>@Html.DisplayNameFor(Model =>Model.First().CountryCode)</td>
                 <td>Actions</td>
             </tr>
 
             @foreach( var abc in Model)
             {
                 <tr>
-                    <td> @Html.DisplayFor(Model => abc.Country_Code)</td>
-                    <td> @Html.DisplayFor(Model => abc.Country_Name)</td>
+                    <td> @Html.DisplayFor(Model => abc.CountryCode)</td>
+                    <td> @Html.DisplayFor(Model => abc.CountryName)</td>
                     <td> <a asp-action="Edit" asp-route-id = "@abc.Id">Edit</a></td>
                     <td> <a asp-action="Delete" asp-route-id ="@abc.Id">Delete</a></td>
                     <td><a asp-action="Details" asp-route-id ="@abc.Id">Details</a></td>

@@ -32,11 +32,9 @@
 
                       
 
-                        @if (User.Identity?.IsAuthenticated == true)
+                        @if (User.IsInRole("Admin"))
                         {
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Logout">Logout</a>
-                            </li>
+                        
 
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Booking" asp-action="Index">Booking</a>
@@ -57,7 +55,24 @@
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Countries" asp-action="Index">Countries</a>
                             </li>
+
+                         
                         }
+                    </ul>
+                    <ul class="navbar-nav mx-auto">
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        
+                            <li class="nav-item ">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Logout">Logout</a>
+                            </li>
+                        
+                    }else {
+                            <li class="nav-item ">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Login">Login</a>
+                            </li>
+                    
+                    }
                     </ul>
                 </div>
             </div>  
@@ -78,5 +93,9 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
+
+   @* <script src="~/js/site.js" asp-append-version="true"></script>
+    @await Component.InvokeAsync("Notyf")
+    @RenderSection("Scripts", required: false)*@
 </body>
 </html>

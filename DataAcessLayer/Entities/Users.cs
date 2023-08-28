@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using DataAcessLayer.Interfaces;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DataAccessLayer.Entities
 {
-    internal class Users
+    public class Users :IEntityBase
     {
         [Key]
         public int Id { get; set; }

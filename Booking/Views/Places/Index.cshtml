@@ -68,11 +68,12 @@
                             <h2>@data.Address</h2>
                         </div>
                     </div>
+
                     <div class="col-md-12">
-                        <img src="@data.Image" width="100%">
+                        <a asp-action="Details" asp-route-id="@data.Id"> <img src="@data.Image" width="100%"></a>
                     </div>
                     <div class="col-md-12 float-end">
-                        <a class="btn btn-primary" asp-action="Book" asp-route-id="@data.Id">Book Now</a>
+                        <a class="btn btn-primary" asp-action="PlacesComment" asp-route-id="@data.Id">comment</a>
                     </div>
 
                 </div>
@@ -80,3 +81,5 @@
         </div>
     }
 </div>
+
+

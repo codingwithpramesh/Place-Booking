@@ -1,4 +1,7 @@
-﻿@*@model List<>
+﻿
+
+
+@model List<DataAccessLayer.Entities.Reviews>;
 
 @{
     ViewData["Title"] = "List Of Data";
@@ -8,16 +11,24 @@
     <div class="col-md-8 offset-2">
         <table class="table">
             <tr>
-                <td>@Html.DisplayNameFor(Model =>Model.First().) </td>
-                <td>@Html.DisplayNameFor(Model =>Model.First().CountryId)</td>
+                <td>@Html.DisplayNameFor(Model =>Model.First().BookingId) </td>
+                <td>@Html.DisplayNameFor(Model =>Model.First().Rating)</td>
+                 <td>@Html.DisplayNameFor(Model =>Model.First().ReviewBody)</td>
+                <td>@Html.DisplayNameFor(Model =>Model.First().Order)</td>
+                <td>@Html.DisplayNameFor(Model =>Model.First().RegisterId)</td>
+                <td>@Html.DisplayNameFor(Model =>Model.First().ParentId)</td>
                 <td>Actions</td>
             </tr>
 
             @foreach (var abc in Model)
             {
                 <tr>
-                    <td> @Html.DisplayFor(Model => abc.Name)</td>
-                    <td> @Html.DisplayFor(Model => abc.CountryId)</td>
+                    <td> @Html.DisplayFor(Model => abc.BookingId)</td>
+                    <td> @Html.DisplayFor(Model => abc.Rating)</td>
+                     <td> @Html.DisplayFor(Model => abc.ReviewBody)</td>
+                    <td> @Html.DisplayFor(Model => abc.Order)</td>
+                    <td> @Html.DisplayFor(Model => abc.RegisterId)</td>
+                    <td> @Html.DisplayFor(Model => abc.ParentId)</td>
                     <td>
                         <a asp-action="Edit" asp-route-id="@abc.Id">Edit</a>
                         <a asp-action="Delete" asp-route-id="@abc.Id">Delete</a>
@@ -29,4 +40,4 @@
 
         </table>
     </div>
-</div>*@
+</div>

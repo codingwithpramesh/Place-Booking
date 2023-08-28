@@ -1,18 +1,58 @@
 ﻿@model Places
 
-<table class="table table-striped">
+<table >
+
     <tr>
-        <td>Id</td>
-        <td>HostId</td>
-        <td>Address</td>
-        <td>City Id</td>
-        <td> Image</td>
+        <td>Host Id</td>
+        <td>@Model.HostId</td>
     </tr>
     <tr>
-        <td>@Model.Id</td>
-        <td>@Model.HostId</td>
+        <td>Address</td>
         <td>@Model.Address</td>
-        <td>@Model.City_Id</td>
+    </tr>
+    <tr>
+        <td>City Id</td>
+        <td>@Model.CityId</td>
+    </tr>
+
+    <tr>
+        <td>Image</td>
         <td><img src="@Url.Content(Model.Image)" asp-append-version="true" width="100px;" height="100px" /></td>
     </tr>
+    
+  
 </table>
+
+@*<div class="post-body">
+    @Html.Raw(Model.Title);
+</div>
+<div class="comment-section">
+    @{
+        await Html.RenderPartialAsync("_MainComment", new DataAccessLayer.Entities.ViewModel.CommentViewModel { Id = Model.Id, MainCommentId = 0 });
+    }
+
+    @foreach (var c in Model.MainComments)
+    {
+        <p> @c.Message  ----  @c.Created</p>
+
+        <div style="margin-left:20px;">
+            <h4> Sub Comment</h4>
+
+            @{
+                await Html.RenderPartialAsync("_MainComment", new DataAccessLayer.Entities.ViewModel.CommentViewModel { Id = Model.Id, MainCommentId = 0 });
+            }
+
+            @foreach (var sc in Model.MainComments)
+            {
+                <p> @sc.Message  ----  @sc.Created</p>
+            }
+        </div>
+
+    }
+</div>*@
+
+@*<form action="Details" method="post">
+    <textarea rows="5" cols="60" name="text" placeholder="Enter Comment"></textarea>
+    <br />
+    <input type="submit" value="submit" />
+</form>*@

@@ -1,10 +1,15 @@
 ﻿using Booking.Data;
 using Booking.Models;
+using DataAccessLayer.Entities;
+using DataAccessLayer.Entities.Comment;
+using DataAccessLayer.Entities.ViewModel;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -15,63 +20,160 @@ namespace BusinessLogicLayer
 
         private readonly ApplicationDbContext _context;
         private readonly IWebHostEnvironment _webHostEnvironment;
-        public PlacesService(ApplicationDbContext context , IWebHostEnvironment webHostEnvironment) 
+
+
+        public PlacesService(ApplicationDbContext context, IWebHostEnvironment webHostEnvironment)
         {
             _context = context;
             _webHostEnvironment = webHostEnvironment;
         }
-       
 
-        public async Task AddAsync(Places places, IFormFile file)
+        public async Task<Places> Add(Places places, IFormFile file)
         {
-            try
+            string wwwRootPath = _webHostEnvironment.WebRootPath;
+            string fileName = Path.GetFileNameWithoutExtension(file.FileName);
+            string extension = Path.GetExtension(file.FileName);
+            places.Image = @"\Images\" + (fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension);
+            string path = Path.Combine(wwwRootPath + "/Images/", fileName);
+            using (var fileStream = new FileStream(path, FileMode.Create))
             {
-                
-                    string wwwRootPath = _webHostEnvironment.WebRootPath;
-                    string fileName = Path.GetFileNameWithoutExtension(file.FileName);
-                    string extension = Path.GetExtension(file.FileName);
-                    places.Image = @"\Images\" + (fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension);
-                    string path = Path.Combine(wwwRootPath + "/Images/", fileName);
-                    using (var fileStream = new FileStream(path, FileMode.Create))
-                    {
-                        await file.CopyToAsync(fileStream);
-                    }
-                    //Insert record
-                    _context.Add(places);
-                    await _context.SaveChangesAsync();
-                    ;
-                
+                await file.CopyToAsync(fileStream);
             }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-            
+            //Insert record
+            await _context.AddAsync(places);
+            await _context.SaveChangesAsync();
+            return places;
         }
+
+        public IEnumerable<Cities> Getcities()
+        {
+            var result = _context.Cities.ToList();
+            return result;
+
+        }
+
+        /*  public Places Comment(Reviews review)
+          {
+              Places data = _context.Places.Where(x => x.Id == review.Id).FirstOrDefault();
+
+              return data;
+
+
+          }*/
+
+
+
+
+        /*public CommentsModel Comment(CommentsModel comment)
+        {
+
+            Reviews data = _context.reviews
+                .Include(x => x.Register)
+                .Include(x => x.Booked)
+                .ThenInclude(y => y.places)
+                .FirstOrDefault();
+            comment.ParentId =data.Register.Id;
+            comment.User = data.Register.Name; *//* ClaimlsPrincipal.Current.FindFirst(ClaimTypes.Name).Value;*//*
+            comment.comment = data.ReviewBody;
+            comment.CreatedDate = DateTime.Now;
+            comment.Rating = data.Rating;
+            comment.order = data.Order;
+            comment.Roles = (Booking.Data.Enum.Roles)(int)data.Register.Roles;
+            comment.Address = data.Booked.places.Address;
+            comment.Image = data.Booked.places.Image;
+            return comment;
+
+
+        }*/
+
 
         public void Delete(int id)
         {
-            throw new NotImplementedException();
+            Places data = _context.Places.FirstOrDefault(p => p.Id == id);
+            _context.Places.Remove(data);
         }
 
         public IEnumerable<Places> GetAll()
         {
-            throw new NotImplementedException();
+            IEnumerable<Places> data = _context.Places.ToList();
+            return data;
         }
 
         public Places GetById(int id)
         {
+
+            Places data = _context.Places.Include(x => x.MainComments).ThenInclude(y => y.SubComments).FirstOrDefault(x => x.Id == id);
+            data.MainComments = data.MainComments.OrderByDescending(x => x.Id).ToList();
+            return data;
+        }
+
+        /* public Places update(Places places)
+         {
+           return  _context.Places.Update(places);
+         }
+ */
+        public Task<Places> update(Places places, IFormFile file)
+        {
+            /*  if (file != null)
+              {
+                  string filename = Path.GetFileName(file.FileName);
+                  string _filename = DateTime.Now.ToString("yymmssfff") + filename;
+                  string extension = Path.GetExtension(file.FileName);
+                  string path = Path.Combine();
+              }
+              p
+
+              return places*/
             throw new NotImplementedException();
         }
 
-        public Places update(Places places)
+        public Task<Places> Update(Places places, IFormFile file)
         {
             throw new NotImplementedException();
         }
 
-        void IPlacesService.AddAsync(Places places, IFormFile file)
+        public Places GetPosts(int id)
         {
-            throw new NotImplementedException();
+            return _context.Places.OrderBy(z => z.Id).Include(x => x.MainComments).ThenInclude(mc => mc.SubComments).FirstOrDefault(y => y.Id == id);
+        }
+
+        public List<Places> GetAllPost()
+        {
+            return _context.Places.Include(x=>x.MainComments).ThenInclude(y=>y.SubComments).ToList();
+        }
+
+        public List<Places> GetAllPost(string category)
+        {
+            Func<Places, bool> Incategory = (Places) => { return Places.Category.ToLower().Equals(category.ToLower()); };
+            return _context.Places.OrderByDescending(x => x.Id).Where(Places => Incategory(Places)).ToList();
+        }
+
+        public void UpdatePost(Places Places)
+        {
+            _context.Places.Update(Places);
+        }
+
+        public void AddSubComment(SubComment subComment)
+        {
+            _context.SubComments.Add(subComment);
+        }
+
+        public void RemoveComment(int id)
+        {
+            _context.Places.Remove(GetPosts(id));
+        }
+
+        public async Task<bool> SavechangesAsync()
+        {
+            if (await _context.SaveChangesAsync()>0)
+            {
+                return true;
+
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }

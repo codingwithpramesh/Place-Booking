@@ -25,19 +25,20 @@ namespace BusinessLogicLayer
 
         public void Delete(int id)
         {
-           _context.Remove(id);
+           Reviews data = _context.reviews.Where(re => re.Id == id).FirstOrDefault();
+            _context.reviews.Remove(data);
             _context.SaveChanges();
         }
 
         public IEnumerable<Reviews> GetAll()
         {
-           var data = _context.reviews.ToList();
+         IEnumerable<Reviews> data = _context.reviews.ToList();
             return data;
         }
 
         public Reviews GetById(int id)
         {
-           var data = _context.reviews.FirstOrDefault(x => x.Id == id);
+           Reviews data = _context.reviews.FirstOrDefault(x => x.Id == id);
             return data;
         }
 

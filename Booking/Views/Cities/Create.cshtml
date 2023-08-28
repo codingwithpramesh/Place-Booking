@@ -1,22 +1,29 @@
-﻿@model Cities
+﻿
 
 @{
-    ViewData["Title"] = "Create Countries";
+    ViewData["Title"] = "Create Cities";
+    var countries = ViewData["Countries"] as IEnumerable<SelectListItem>;
+    var city = ViewBag.City as Cities;
 }
 <form asp-action="Create" method="post">
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
     <div class="row">
         <div class="col-md-8 offset-2">
             <div class="form-group">
-                <label asp-for="Name">Name</label>
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name"></span>
+                <label asp-for="@city.Name">Name</label>
+                <input asp-for="@city.Name" class="form-control" />
+                <span asp-validation-for="@city.Name"></span>
             </div>
 
             <div class="form-group">
-                <label asp-for="CountryId">Country Code</label>
-                <input asp-for="CountryId" class="form-control" />
-                <span asp-validation-for="CountryId"></span>
+
+                <label asp-for="@city.CountryId">Country Code</label>
+            @*   // <input asp-for="CountryId" class="form-control" />*@
+              
+                <select name="@city.CountryId" asp-items="@countries" id="@city.CountryId" class="form-control">
+                <option value="1">Select</option>
+            </select>
+                <span asp-validation-for="@city.CountryId"></span>
             </div>
 
             <div class="form-group">
@@ -26,3 +33,5 @@
     </div>
 
 </form>
+
+

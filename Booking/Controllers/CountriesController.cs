@@ -15,7 +15,7 @@ namespace Booking.Controllers
         }
         public IActionResult Index()
         {
-         var data= _Service.GetAll();
+         IEnumerable<Countries> data= _Service.GetAll();
          return View(data);
         }
 
@@ -35,7 +35,7 @@ namespace Booking.Controllers
         [HttpGet]
         public IActionResult Edit(int id)
         {
-            var data = _Service.GetById(id);
+            Countries data = _Service.GetById(id);
             return View(data);
         }
 
@@ -49,7 +49,7 @@ namespace Booking.Controllers
 
         public IActionResult Delete(int id)
         {
-            var data = _Service.GetById(id);
+            Countries data = _Service.GetById(id);
             return View(data);
         }
 
@@ -63,7 +63,7 @@ namespace Booking.Controllers
 
         public IActionResult Details(int id)
         {
-            var data = _Service.GetById(id);
+            Countries data = _Service.GetById(id);
             return View(data);
         }
     }

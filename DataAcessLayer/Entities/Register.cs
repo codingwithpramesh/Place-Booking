@@ -1,10 +1,11 @@
 ﻿
 using Booking.Data.Enum;
+using DataAcessLayer.Interfaces;
 using System.ComponentModel.DataAnnotations;
 
 namespace Booking.Models
 {
-    public class Register
+    public class Register : IEntityBase
     {
         [Key]
         public int Id { get; set; }

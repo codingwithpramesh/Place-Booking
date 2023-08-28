@@ -15,7 +15,7 @@
 *@                <td>@Html.DisplayNameFor(Model =>Model.First().StartDate)</td>
                 <td>@Html.DisplayNameFor(Model =>Model.First().EndDate) </td>
                 <td>@Html.DisplayNameFor(Model =>Model.First().PricePerNight) </td>
-                <td>@Html.DisplayNameFor(Model => Model.First().Num_night)</td>
+                <td>@Html.DisplayNameFor(Model => Model.First().NumberOfNight)</td>
                 <td>Actions</td>
             </tr>
 
@@ -27,7 +27,7 @@
 *@                    <td> @Html.DisplayFor(Model => abc.StartDate)</td>
                     <td> @Html.DisplayFor(Model => abc.EndDate)</td>
                     <td> @Html.DisplayFor(Model => abc.PricePerNight)</td>
-                    <td> @Html.DisplayFor(Model => abc.Num_night)</td>
+                    <td> @Html.DisplayFor(Model => abc.NumberOfNight)</td>
                 
                     <td> <a asp-action="Edit" asp-route-id="@abc.Id">Edit</a></td>
                     <td> <a asp-action="Delete" asp-route-id="@abc.Id">Delete</a></td>

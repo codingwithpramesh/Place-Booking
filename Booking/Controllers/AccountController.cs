@@ -4,6 +4,7 @@ using BusinessLogicLayer;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
 
 namespace Booking.Controllers
@@ -26,7 +27,7 @@ namespace Booking.Controllers
         public IActionResult Register(Register register)
         {
             _service.Register(register);
-            return RedirectToAction("Index");
+            return RedirectToAction("Login");
         }
 
         [HttpGet]
@@ -38,8 +39,38 @@ namespace Booking.Controllers
         [HttpPost]
         public async Task<IActionResult> Login(Register Register)
         {
-            throw new NotImplementedException();
+            Register data = _service.login(Register);
+            /*var data = _context.Register.FirstOrDefault(x => x.Email == Register.Email && x.password == Register.password);
+*/
+            /*  var claims = new List<Claim>()
+              {
+                  new Claim(ClaimTypes.NameIdentifier, Register.Name),
 
+
+              };*/
+
+            var identity = new ClaimsIdentity(new[]
+            {
+              new Claim(ClaimTypes.Email, Register.Email),
+              new Claim(ClaimTypes.Role, Register.Roles.ToString())
+            }, CookieAuthenticationDefaults.AuthenticationScheme);
+            var principal = new ClaimsPrincipal(identity);
+            HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal).Wait();
+
+            // HttpContext.Session.SetString("Email", Register.Email);
+
+            if (data.Roles == Data.Enum.Roles.Admin)
+            {
+                return RedirectToAction("Index", "Admin");
+            }
+            else if (data.Roles == Data.Enum.Roles.User)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
         }
 
         //[HttpPost, ActionName("Login")]

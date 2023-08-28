@@ -2,6 +2,7 @@
 using Booking.Models;
 using BusinessLogicLayer;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Booking.Controllers
 {
@@ -16,12 +17,22 @@ namespace Booking.Controllers
 
         public IActionResult Index()
         {
-            var data = _service.GetAll();
+           IEnumerable<Cities> data = _service.GetAll();
             return View(data);
         }
         [HttpGet]
         public IActionResult Create()
         {
+            var lstCountries = _service.GetAllCountries().Select(x => new SelectListItem
+            {
+                
+                Text=x.CountryName,
+                Value=x.Id.ToString()
+              
+            }) ;
+
+            ViewData["Countries"] = lstCountries;
+            ViewData["City"] = new Cities();
             return View();
         }
 
@@ -32,6 +43,7 @@ namespace Booking.Controllers
             {
                 _service.Add(city);
                 return RedirectToAction("Index");
+               
             }catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
@@ -42,7 +54,7 @@ namespace Booking.Controllers
         [HttpGet]
         public IActionResult Edit(int id)
         {
-            var data = _service.GetById(id);
+            Cities data = _service.GetById(id);
             return View(data);
         }
 
@@ -55,7 +67,7 @@ namespace Booking.Controllers
 
         public async Task<IActionResult> Delete(int id)
         {
-            var data =   _service.GetById(id);
+            Cities data =   _service.GetById(id);
             return View(data);
         }
 
@@ -69,7 +81,7 @@ namespace Booking.Controllers
 
         public IActionResult Details(int id)
         {
-            var data = _service.GetById(id);
+            Cities data = _service.GetById(id);
             return View(data);
         }
     }

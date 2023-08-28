@@ -33,7 +33,7 @@ namespace DataAccessLayer.Migrations
                     b.Property<DateTime>("EndDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("Num_night")
+                    b.Property<int>("NumberOfNight")
                         .HasColumnType("int");
 
                     b.Property<float>("PricePerNight")
@@ -50,7 +50,11 @@ namespace DataAccessLayer.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("bookings");
+                    b.HasIndex("placeId");
+
+                    b.HasIndex("userID");
+
+                    b.ToTable("Booked");
                 });
 
             modelBuilder.Entity("Booking.Models.Cities", b =>
@@ -70,6 +74,8 @@ namespace DataAccessLayer.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CountryId");
+
                     b.ToTable("Cities");
                 });
 
@@ -81,11 +87,10 @@ namespace DataAccessLayer.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("Country_Code")
+                    b.Property<int>("CountryCode")
                         .HasColumnType("int");
 
-                    b.Property<string>("Country_Name")
-                        .IsRequired()
+                    b.Property<string>("CountryName")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -105,17 +110,23 @@ namespace DataAccessLayer.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("City_Id")
+                    b.Property<string>("Category")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("CityId")
                         .HasColumnType("int");
 
                     b.Property<int>("HostId")
                         .HasColumnType("int");
 
                     b.Property<string>("Image")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CityId");
+
+                    b.HasIndex("HostId");
 
                     b.ToTable("Places");
                 });
@@ -163,6 +174,162 @@ namespace DataAccessLayer.Migrations
                     b.ToTable("Register");
                 });
 
+            modelBuilder.Entity("DataAccessLayer.Entities.BookingCart", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int?>("CountryId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.Property<int>("RegisterId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("citiesId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CountryId");
+
+                    b.HasIndex("RegisterId");
+
+                    b.HasIndex("UserId");
+
+                    b.HasIndex("citiesId");
+
+                    b.ToTable("BookingsCarts");
+                });
+
+            modelBuilder.Entity("DataAccessLayer.Entities.Comment.MainComment", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Message")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("PlacesId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PlacesId");
+
+                    b.ToTable("MainComments");
+                });
+
+            modelBuilder.Entity("DataAccessLayer.Entities.Comment.SubComment", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("MainCommentId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Message")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("MainCommentId");
+
+                    b.ToTable("SubComments");
+                });
+
+            modelBuilder.Entity("DataAccessLayer.Entities.Hosts", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Hosts");
+                });
+
+            modelBuilder.Entity("DataAccessLayer.Entities.Posts", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Image")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ParentId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PlaceId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Rating")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Roles")
+                        .HasColumnType("int");
+
+                    b.Property<string>("User")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("comment")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("order")
+                        .HasColumnType("int");
+
+                    b.Property<int>("registerId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PlaceId");
+
+                    b.HasIndex("registerId");
+
+                    b.ToTable("posts");
+                });
+
             modelBuilder.Entity("DataAccessLayer.Entities.Reviews", b =>
                 {
                     b.Property<int>("Id")
@@ -174,7 +341,19 @@ namespace DataAccessLayer.Migrations
                     b.Property<int>("BookingId")
                         .HasColumnType("int");
 
+                    b.Property<int>("Order")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ParentId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("PostsId")
+                        .HasColumnType("int");
+
                     b.Property<int>("Rating")
+                        .HasColumnType("int");
+
+                    b.Property<int>("RegisterId")
                         .HasColumnType("int");
 
                     b.Property<string>("ReviewBody")
@@ -182,7 +361,195 @@ namespace DataAccessLayer.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("BookingId");
+
+                    b.HasIndex("PostsId");
+
+                    b.HasIndex("RegisterId");
+
                     b.ToTable("reviews");
+                });
+
+            modelBuilder.Entity("DataAccessLayer.Entities.Users", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("Booking.Models.Booked", b =>
+                {
+                    b.HasOne("Booking.Models.Places", "places")
+                        .WithMany()
+                        .HasForeignKey("placeId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("DataAccessLayer.Entities.Users", "User")
+                        .WithMany()
+                        .HasForeignKey("userID")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("User");
+
+                    b.Navigation("places");
+                });
+
+            modelBuilder.Entity("Booking.Models.Cities", b =>
+                {
+                    b.HasOne("Booking.Models.Countries", "Countries")
+                        .WithMany()
+                        .HasForeignKey("CountryId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Countries");
+                });
+
+            modelBuilder.Entity("Booking.Models.Places", b =>
+                {
+                    b.HasOne("Booking.Models.Cities", "Cities")
+                        .WithMany()
+                        .HasForeignKey("CityId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("DataAccessLayer.Entities.Hosts", "Hosts")
+                        .WithMany()
+                        .HasForeignKey("HostId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Cities");
+
+                    b.Navigation("Hosts");
+                });
+
+            modelBuilder.Entity("DataAccessLayer.Entities.BookingCart", b =>
+                {
+                    b.HasOne("Booking.Models.Countries", "Countries")
+                        .WithMany()
+                        .HasForeignKey("CountryId");
+
+                    b.HasOne("Booking.Models.Register", "Register")
+                        .WithMany()
+                        .HasForeignKey("RegisterId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("DataAccessLayer.Entities.Users", "Users")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Booking.Models.Cities", "Cities")
+                        .WithMany()
+                        .HasForeignKey("citiesId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Cities");
+
+                    b.Navigation("Countries");
+
+                    b.Navigation("Register");
+
+                    b.Navigation("Users");
+                });
+
+            modelBuilder.Entity("DataAccessLayer.Entities.Comment.MainComment", b =>
+                {
+                    b.HasOne("Booking.Models.Places", null)
+                        .WithMany("MainComments")
+                        .HasForeignKey("PlacesId");
+                });
+
+            modelBuilder.Entity("DataAccessLayer.Entities.Comment.SubComment", b =>
+                {
+                    b.HasOne("DataAccessLayer.Entities.Comment.MainComment", null)
+                        .WithMany("SubComments")
+                        .HasForeignKey("MainCommentId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("DataAccessLayer.Entities.Hosts", b =>
+                {
+                    b.HasOne("DataAccessLayer.Entities.Users", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("DataAccessLayer.Entities.Posts", b =>
+                {
+                    b.HasOne("Booking.Models.Places", "places")
+                        .WithMany()
+                        .HasForeignKey("PlaceId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Booking.Models.Register", "Register")
+                        .WithMany()
+                        .HasForeignKey("registerId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Register");
+
+                    b.Navigation("places");
+                });
+
+            modelBuilder.Entity("DataAccessLayer.Entities.Reviews", b =>
+                {
+                    b.HasOne("Booking.Models.Booked", "Booked")
+                        .WithMany()
+                        .HasForeignKey("BookingId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("DataAccessLayer.Entities.Posts", null)
+                        .WithMany("Reviews")
+                        .HasForeignKey("PostsId");
+
+                    b.HasOne("Booking.Models.Register", "Register")
+                        .WithMany()
+                        .HasForeignKey("RegisterId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Booked");
+
+                    b.Navigation("Register");
+                });
+
+            modelBuilder.Entity("Booking.Models.Places", b =>
+                {
+                    b.Navigation("MainComments");
+                });
+
+            modelBuilder.Entity("DataAccessLayer.Entities.Comment.MainComment", b =>
+                {
+                    b.Navigation("SubComments");
+                });
+
+            modelBuilder.Entity("DataAccessLayer.Entities.Posts", b =>
+                {
+                    b.Navigation("Reviews");
                 });
 #pragma warning restore 612, 618
         }

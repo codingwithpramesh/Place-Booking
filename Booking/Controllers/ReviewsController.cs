@@ -1,12 +1,13 @@
 ﻿using BusinessLogicLayer;
 using DataAccessLayer.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Booking.Controllers
 {
+   // [Authorize]
     public class ReviewsController : Controller
     {
-
         private readonly IReviewsService _service;
         public ReviewsController(IReviewsService service)
         {
@@ -14,7 +15,7 @@ namespace Booking.Controllers
         }
         public IActionResult Index()
         {
-            var data = _service.GetAll();
+           IEnumerable<Reviews> data = _service.GetAll();
             return View(data);
         }
 
@@ -34,7 +35,7 @@ namespace Booking.Controllers
         [HttpGet]
         public IActionResult Edit(int id)
         {
-            var data = _service.GetById(id);
+            Reviews data = _service.GetById(id);
             return View(data);
         }
         [HttpPost]
@@ -48,14 +49,14 @@ namespace Booking.Controllers
         [HttpGet]
         public IActionResult Details(int id)
         {
-            var data = _service.GetById(id);
+            Reviews data = _service.GetById(id);
             return View(data);
         }
 
         [HttpGet]
         public IActionResult Delete(int id)
         {
-            var data = _service.GetById(id);
+            Reviews data = _service.GetById(id);
             return View(data);
         }
 

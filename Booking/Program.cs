@@ -1,12 +1,19 @@
+using AspNetCoreHero.ToastNotification;
+using AspNetCoreHero.ToastNotification.Extensions;
 using Booking.Data;
 using BusinessLogicLayer;
+using DataAccessLayer.Entities;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
-
-
+//builder.Services.AddNotyf(config => {
+//    config.DurationInSeconds = 10;
+//    config.IsDismissable = true;
+//    config.Position = NotyfPosition.BottomRight; 
+//});
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
@@ -16,6 +23,21 @@ builder.Services.AddScoped<IReviewsService, ReviewsService>();
 builder.Services.AddScoped<IBookingPlaceService, BookingPlaceService>();
 builder.Services.AddScoped<IPlacesService, PlacesService>();
 builder.Services.AddScoped<IAccountService,AccountService>();
+builder.Services.AddScoped<IHostService, HostService>();
+builder.Services.AddScoped<IPostService, PostService>();
+
+
+//logging
+
+using (var log = new LoggerConfiguration()
+    .WriteTo.File("E:\\Apilog.log", rollingInterval:RollingInterval.Day)
+    .CreateLogger())
+{
+
+    builder.Logging.AddSerilog(log);
+    /*log.Information("This is an informational message.");
+    log.Warning("This is a warning for testing purposes.");*/
+ }
 
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options =>
 {
@@ -35,6 +57,17 @@ var cookiePolicyOptions = new CookiePolicyOptions
     MinimumSameSitePolicy = SameSiteMode.Strict,
 };
 
+
+//seriog 
+
+/*var logger = new LoggerConfiguration()
+  .ReadFrom.Configuration(builder.Configuration)
+  .Enrich.FromLogContext()
+  .CreateLogger();
+//builder.Logging.ClearProviders();
+builder.Logging.AddSerilog(logger);*/
+
+//end
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
@@ -47,6 +80,8 @@ app.UseCookiePolicy(cookiePolicyOptions);
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
+
+//app.UseNotyf();
 
 app.UseRouting();
 

@@ -11,16 +11,16 @@ namespace Booking.Controllers
     public class BookingController : Controller
     {
         private readonly IBookingPlaceService _service;
-     /*   private readonly IWebHostEnvironment _environment;*/
-        public BookingController(IBookingPlaceService service ) 
-        { 
+        /*   private readonly IWebHostEnvironment _environment;*/
+        public BookingController(IBookingPlaceService service)
+        {
             _service = service;
-       /*     _environment = environment;*/
+            /*     _environment = environment;*/
         }
 
         public IActionResult Index()
         {
-            var Data = _service.GetAll();
+            IEnumerable<Booked> Data = _service.GetAll();
             return View(Data);
 
         }
@@ -72,7 +72,7 @@ namespace Booking.Controllers
         [HttpGet]
         public IActionResult Edit(int id)
         {
-           var data = _service.GetById(id);
+            Booked data = _service.GetById(id);
             return View(data);
         }
 
@@ -86,15 +86,15 @@ namespace Booking.Controllers
         [HttpGet]
         public IActionResult Delete(int id)
         {
-            var data = _service.GetById(id);
+            Booked data = _service.GetById(id);
             return View(data);
 
         }
 
-        [HttpPost , ActionName("Delete")]
+        [HttpPost, ActionName("Delete")]
         public IActionResult Deleted(int id)
         {
-             _service.Delete(id);
+            _service.Delete(id);
             return RedirectToAction("Index");
 
         }
@@ -102,7 +102,7 @@ namespace Booking.Controllers
         [HttpGet]
         public IActionResult Details(int id)
         {
-            var data = _service.GetById(id);
+            Booked data = _service.GetById(id);
             return View(data);
         }
 
