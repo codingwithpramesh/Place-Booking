@@ -43,16 +43,12 @@ namespace BusinessLogicLayer
               new Claim(ClaimTypes.Role, register.Roles.ToString())
             }, CookieAuthenticationDefaults.AuthenticationScheme);
             ClaimsPrincipal principal = new ClaimsPrincipal(identity);
-           // HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal).Wait();
-
-            // HttpContext.Session.SetString("Email", Register.Email);
-
             return data;
 
 
 
 
-            throw new NotImplementedException();
+            
         }
 
         public void Register(Register register)

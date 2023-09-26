@@ -39,7 +39,6 @@ namespace BusinessLogicLayer
             {
                 await file.CopyToAsync(fileStream);
             }
-            //Insert record
             await _context.AddAsync(places);
             await _context.SaveChangesAsync();
             return places;
@@ -52,39 +51,6 @@ namespace BusinessLogicLayer
 
         }
 
-        /*  public Places Comment(Reviews review)
-          {
-              Places data = _context.Places.Where(x => x.Id == review.Id).FirstOrDefault();
-
-              return data;
-
-
-          }*/
-
-
-
-
-        /*public CommentsModel Comment(CommentsModel comment)
-        {
-
-            Reviews data = _context.reviews
-                .Include(x => x.Register)
-                .Include(x => x.Booked)
-                .ThenInclude(y => y.places)
-                .FirstOrDefault();
-            comment.ParentId =data.Register.Id;
-            comment.User = data.Register.Name; *//* ClaimlsPrincipal.Current.FindFirst(ClaimTypes.Name).Value;*//*
-            comment.comment = data.ReviewBody;
-            comment.CreatedDate = DateTime.Now;
-            comment.Rating = data.Rating;
-            comment.order = data.Order;
-            comment.Roles = (Booking.Data.Enum.Roles)(int)data.Register.Roles;
-            comment.Address = data.Booked.places.Address;
-            comment.Image = data.Booked.places.Image;
-            return comment;
-
-
-        }*/
 
 
         public void Delete(int id)
@@ -107,23 +73,10 @@ namespace BusinessLogicLayer
             return data;
         }
 
-        /* public Places update(Places places)
-         {
-           return  _context.Places.Update(places);
-         }
- */
+
         public Task<Places> update(Places places, IFormFile file)
         {
-            /*  if (file != null)
-              {
-                  string filename = Path.GetFileName(file.FileName);
-                  string _filename = DateTime.Now.ToString("yymmssfff") + filename;
-                  string extension = Path.GetExtension(file.FileName);
-                  string path = Path.Combine();
-              }
-              p
 
-              return places*/
             throw new NotImplementedException();
         }
 
@@ -139,7 +92,7 @@ namespace BusinessLogicLayer
 
         public List<Places> GetAllPost()
         {
-            return _context.Places.Include(x=>x.MainComments).ThenInclude(y=>y.SubComments).ToList();
+            return _context.Places.Include(x => x.MainComments).ThenInclude(y => y.SubComments).ToList();
         }
 
         public List<Places> GetAllPost(string category)

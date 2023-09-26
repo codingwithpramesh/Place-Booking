@@ -22,17 +22,7 @@ namespace Booking.Controllers
         [HttpGet]
         public IActionResult Create()
         {
-           /* var lstCountries = _Service.GetAllCountries().Select(x => new SelectListItem
-            {
-
-                Text=x.CountryName,
-                Value=x.Id.ToString()
-
-            });
-
-            ViewData["Countries"] = lstCountries;
-            ViewData["City"] = new Cities();
-            return View();*/
+         
            return View();
         }
 
@@ -78,7 +68,6 @@ namespace Booking.Controllers
             _Service.Delete(id);
             return RedirectToAction("Index");
         }
-
 
         public IActionResult Details(int id)
         {

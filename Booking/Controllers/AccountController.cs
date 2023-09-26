@@ -40,15 +40,6 @@ namespace Booking.Controllers
         public async Task<IActionResult> Login(Register Register)
         {
             Register data = _service.login(Register);
-            /*var data = _context.Register.FirstOrDefault(x => x.Email == Register.Email && x.password == Register.password);
-*/
-            /*  var claims = new List<Claim>()
-              {
-                  new Claim(ClaimTypes.NameIdentifier, Register.Name),
-
-
-              };*/
-
             var identity = new ClaimsIdentity(new[]
             {
               new Claim(ClaimTypes.Email, Register.Email),
@@ -72,12 +63,6 @@ namespace Booking.Controllers
                 return RedirectToAction("Login", "Account");
             }
         }
-
-        //[HttpPost, ActionName("Login")]
-        /* public IActionResult Login()
-         {
-
-         }*/
 
         public async Task<IActionResult> Logout()
         {

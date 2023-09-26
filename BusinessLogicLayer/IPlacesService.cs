@@ -23,19 +23,7 @@ namespace BusinessLogicLayer
 
         void Delete(int id);
 
-      //  CommentsModel Comment(CommentsModel comment);
-
-
-
-
         IEnumerable<Cities> Getcities();
-
-
-
-
-
-        /// comments 
-        /// 
 
 
         Places GetPosts(int id);
@@ -47,8 +35,6 @@ namespace BusinessLogicLayer
         void UpdatePost(Places Places);
 
         void AddSubComment(SubComment subComment);
-
-       
 
         void RemoveComment(int id);
 

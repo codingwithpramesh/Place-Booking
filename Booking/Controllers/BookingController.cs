@@ -11,11 +11,9 @@ namespace Booking.Controllers
     public class BookingController : Controller
     {
         private readonly IBookingPlaceService _service;
-        /*   private readonly IWebHostEnvironment _environment;*/
         public BookingController(IBookingPlaceService service)
         {
             _service = service;
-            /*     _environment = environment;*/
         }
 
         public IActionResult Index()
@@ -34,40 +32,10 @@ namespace Booking.Controllers
         [HttpPost, ActionName("Create")]
         public IActionResult Created(Booked booked)
         {
-            /* try
-             {
-                 if (ModelState.IsValid)
-                 {
-                    *//* string wwwRootPath = _environment.WebRootPath;
-                     string fileName = Path.GetFileNameWithoutExtension(file.FileName);
-                     string extension = Path.GetExtension(file.FileName);
-                     booked.Image = @"\Images\" + (fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension);
-                     string path = Path.Combine(wwwRootPath + "/Images/", fileName);
-                     using (var fileStream = new FileStream(path, FileMode.Create))
-                     {
-                         await file.CopyToAsync(fileStream);
-                     }
-                     //Insert record
-                     _context.Add(booked);
-                     await _context.SaveChangesAsync();
-                     return RedirectToAction(nameof(Index));*//*
-                 }
-             }catch (Exception ex)
-             {
-                 Console.WriteLine(ex.Message);
-             }
-             return View();*/
 
             _service.Add(booked);
             return RedirectToAction("Index");
         }
-
-        /* [HttpGet]
-         public IActionResult Details(int id)
-         {
-             var data = _context.
-         }
- */
 
         [HttpGet]
         public IActionResult Edit(int id)
@@ -105,10 +73,5 @@ namespace Booking.Controllers
             Booked data = _service.GetById(id);
             return View(data);
         }
-
-
-
-
-
     }
 }

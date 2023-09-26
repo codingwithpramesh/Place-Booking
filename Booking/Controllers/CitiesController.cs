@@ -12,12 +12,12 @@ namespace Booking.Controllers
 
         public CitiesController(ICitiesService service)
         {
-            _service = service; 
+            _service = service;
         }
 
         public IActionResult Index()
         {
-           IEnumerable<Cities> data = _service.GetAll();
+            IEnumerable<Cities> data = _service.GetAll();
             return View(data);
         }
         [HttpGet]
@@ -25,11 +25,11 @@ namespace Booking.Controllers
         {
             var lstCountries = _service.GetAllCountries().Select(x => new SelectListItem
             {
-                
+
                 Text=x.CountryName,
                 Value=x.Id.ToString()
-              
-            }) ;
+
+            });
 
             ViewData["Countries"] = lstCountries;
             ViewData["City"] = new Cities();
@@ -43,8 +43,9 @@ namespace Booking.Controllers
             {
                 _service.Add(city);
                 return RedirectToAction("Index");
-               
-            }catch (Exception ex)
+
+            }
+            catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
             }
@@ -61,20 +62,20 @@ namespace Booking.Controllers
         [HttpPost]
         public IActionResult Edit(Cities city)
         {
-           _service.update(city);
+            _service.update(city);
             return RedirectToAction("Index");
         }
 
         public async Task<IActionResult> Delete(int id)
         {
-            Cities data =   _service.GetById(id);
+            Cities data = _service.GetById(id);
             return View(data);
         }
 
         [HttpPost, ActionName("Delete")]
         public IActionResult Deleted(int id)
         {
-           _service.Delete(id);
+            _service.Delete(id);
             return RedirectToAction("Index");
         }
 

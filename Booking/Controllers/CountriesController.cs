@@ -8,15 +8,15 @@ namespace Booking.Controllers
 {
     public class CountriesController : Controller
     {
-        private readonly  ICountriesService _Service;
+        private readonly ICountriesService _Service;
         public CountriesController(ICountriesService service)
         {
-            _Service = service; 
+            _Service = service;
         }
         public IActionResult Index()
         {
-         IEnumerable<Countries> data= _Service.GetAll();
-         return View(data);
+            IEnumerable<Countries> data = _Service.GetAll();
+            return View(data);
         }
 
         [HttpGet]
@@ -42,8 +42,8 @@ namespace Booking.Controllers
         [HttpPost]
         public IActionResult Edit(Countries countries)
         {
-           
-           _Service.update(countries);
+
+            _Service.update(countries);
             return RedirectToAction("Index");
         }
 
@@ -53,13 +53,12 @@ namespace Booking.Controllers
             return View(data);
         }
 
-        [HttpPost ,ActionName("Delete")]
+        [HttpPost, ActionName("Delete")]
         public IActionResult Deleted(int id)
         {
             _Service.Delete(id);
             return RedirectToAction("Index");
         }
-
 
         public IActionResult Details(int id)
         {

@@ -17,17 +17,11 @@ namespace Booking.Controllers
     {
 
         private readonly IPlacesService _Service;
-        //  private readonly ApplicationDbContext _context;
         private readonly IWebHostEnvironment _webHostEnvironment;
-       // private readonly INotyfService _notyf;
         public PlacesController(IPlacesService service, IWebHostEnvironment webHostEnvironment)
         {
-            /*_context = context;*/
             _Service = service;
             _webHostEnvironment = webHostEnvironment;
-          
-
-
         }
         public IActionResult Index()
         {
@@ -77,32 +71,6 @@ namespace Booking.Controllers
             {
                 return RedirectToAction("CreatedAsync", "Places", ex);
             }
-            
-           /* try
-            {
-                if (ModelState.IsValid)
-                {
-                    string wwwRootPath = _webHostEnvironment.WebRootPath;
-                    string fileName = Path.GetFileNameWithoutExtension(file.FileName);
-                    string extension = Path.GetExtension(file.FileName);
-                    place.Image = @"\Images\" + (fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension);
-                    string path = Path.Combine(wwwRootPath + "/Images/", fileName);
-                    using (var fileStream = new FileStream(path, FileMode.Create))
-                    {
-                        await file.CopyToAsync(fileStream);
-                    }
-                    //Insert record
-                    _context.Add(place);
-                    await _context.SaveChangesAsync();
-                    return RedirectToAction(nameof(Index));
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-            return View();*/
-
 
         }
 
@@ -116,7 +84,6 @@ namespace Booking.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(Places place, IFormFile file)
         {
-           /* _Service.pla.update(place, file);*/
             return RedirectToAction("Index");
         }
         [HttpGet]
@@ -134,15 +101,6 @@ namespace Booking.Controllers
             return RedirectToAction("Index");
         }
 
-        /* [HttpPost, ActionName("Delete")]
-         public IActionResult Deleted(int id)
-         {
-             var data = _context.Places.FirstOrDefault(x => x.Id == id);
-             _context.Places.Remove(data);
-             _context.SaveChanges();
-             return RedirectToAction("Index");
-         }
-    */
 
         public IActionResult Details(int id)
         {
@@ -150,24 +108,16 @@ namespace Booking.Controllers
             return View(Data);
         }
 
-       /* public IActionResult Details()
-        {
-            return View();
-        }*/
 
         public IActionResult PlacesComment(int id)
         {
             try
             {
-                /* Places data = _Service.GetById(id);
-                 Comments comment = new Comments();
-                 comment.ParentId = id;
-                 var reviews = _Service.GetById(id);
-              //   comment.Reviews = reviews.re;
-                 return View(data);*/
+
                 Places data = _Service.GetById(id);
                 return View(data);
-            }catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 return RedirectToAction("PlacesComment", "Places", ex);
             }
@@ -175,11 +125,7 @@ namespace Booking.Controllers
 
         public IActionResult CommentsDetails(CommentViewModel vm)
         {
-           /* if(!ModelState.IsValid)
-                return Post()
-                
-            return View();*/
-           return View(vm);
+            return View(vm);
         }
 
 
@@ -215,14 +161,14 @@ namespace Booking.Controllers
                     Message = VM.Message,
                     Created = DateTime.Now,
                 };
-                
-                
+
+
                 _Service.AddSubComment(comment);
             }
             await _Service.SavechangesAsync();
-            return RedirectToAction("placescomment", new { Id = VM.Id  });
-          
-            
+            return RedirectToAction("placescomment", new { Id = VM.Id });
+
+
         }
     }
 }

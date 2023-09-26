@@ -34,12 +34,6 @@ namespace BusinessLogicLayer
             _context.SaveChanges();
         }
 
-      /*  public IEnumerable<Cities> Droplist(int id)
-        {
-          var data= _context.Cities.Where(x =>x.Id == id).ToList();
-            return data;
-
-        }*/
 
         public IEnumerable<Countries> GetAllCountries()
         {
@@ -49,10 +43,10 @@ namespace BusinessLogicLayer
 
         public IEnumerable<Cities> GetAll()
         {
-           /* Log.Information("Logging Information");*/
-            var result = _context.Cities.ToList();/*Select(c => new SelectListItem { Value = c.CountryId.ToString(), Text  =c.CountryId.ToString() }).ToList();*/
+           
+            var result = _context.Cities.ToList();
             return result;
-           /* return null;*/
+           
         }
 
         public Cities GetById(int id)
